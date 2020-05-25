@@ -2,17 +2,17 @@ import java.util.Scanner;
 
 public class BasicCalculatorV1 {
 
-    static Scanner scanner = new Scanner(System.in);
-    static Scanner machine = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
+    static final Scanner machine = new Scanner(System.in);
 
     static boolean recalc;
     static boolean finished;
 
     public static void main(String[] args) {
 
-        while (finished == true) {
+        while (finished) {
 
-            if (recalc == true) {
+            if (recalc) {
                 calcMachine();
                 calcAgain();
             } else {
@@ -40,7 +40,6 @@ public class BasicCalculatorV1 {
 
         } else if (yesno.equalsIgnoreCase("yes")) {
             System.out.println("Calculator Started!");
-            return;
         }
 
     }
@@ -74,7 +73,7 @@ public class BasicCalculatorV1 {
 
     static void calcMachine() {
 
-        if (finished != true) {
+        if (!finished) {
             System.out.println("Calculation Machine Initialized, Type in an equation to get started:");
         } else {
             System.out.println("─────────────────────");
@@ -95,8 +94,8 @@ public class BasicCalculatorV1 {
             finished = true;
 
         } else if (equation.contains("-")) {
-            String num1 = equation.split("\\-")[0];
-            String num2 = equation.split("\\-")[1];
+            String num1 = equation.split("-")[0];
+            String num2 = equation.split("-")[1];
 
             double part1 = Double.parseDouble(num1);
             double part2 = Double.parseDouble(num2);
@@ -119,8 +118,8 @@ public class BasicCalculatorV1 {
             finished = true;
 
         } else if (equation.contains("/")) {
-            String num1 = equation.split("\\/")[0];
-            String num2 = equation.split("\\/")[1];
+            String num1 = equation.split("/")[0];
+            String num2 = equation.split("/")[1];
 
             double part1 = Double.parseDouble(num1);
             double part2 = Double.parseDouble(num2);
@@ -131,8 +130,8 @@ public class BasicCalculatorV1 {
             finished = true;
 
         } else if (equation.contains("%")) {
-            String num1 = equation.split("\\%")[0];
-            String num2 = equation.split("\\%")[1];
+            String num1 = equation.split("%")[0];
+            String num2 = equation.split("%")[1];
 
             double part1 = Double.parseDouble(num1);
             double part2 = Double.parseDouble(num2);
@@ -143,7 +142,7 @@ public class BasicCalculatorV1 {
             finished = true;
 
         } else if (equation.contains("!")) {
-            String num1 = equation.split("\\!")[0];
+            String num1 = equation.split("!")[0];
 
             long part1 = Long.parseLong(num1);
             long ans = 1;
@@ -177,9 +176,9 @@ public class BasicCalculatorV1 {
     }
 
     static void calcAgain() {
-        while (finished == true) {
+        while (finished) {
 
-            if (recalc == true) {
+            if (recalc) {
                 System.out.println("Would you like to calculate another equation? (Yes/No)");
 
                 String calc = scanner.nextLine();
@@ -191,7 +190,6 @@ public class BasicCalculatorV1 {
                     System.exit(0);
                 } else {
                     System.out.println("Invalid Input! Enter either 'Yes' or 'No'.");
-                    continue;
                 }
 
             } else {

@@ -5,27 +5,25 @@ import java.util.Scanner;
 
 public class BasicCalculatorV2 {
 
-    static Scanner scanner = new Scanner(System.in);
-    static Scanner machine = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
+    static final Scanner machine = new Scanner(System.in);
 
     static boolean recalc;
     static boolean finished;
-    static boolean quit;
 
-    static String add = "+";
-    static String sub = "-";
-    static String mul = "*";
-    static String div = "/";
-    static String mod = "%";
-    static String fact = "!";
-    static String exp = "^";
-    static String sqrt = "√";
+    static final String add = "+";
+    static final String sub = "-";
+    static final String mul = "*";
+    static final String div = "/";
+    static final String mod = "%";
+    static final String fact = "!";
+    static final String sqrt = "√";
 
     public static void main(String[] args) {
 
-        while (finished == true) {
+        while (finished) {
 
-            if (recalc == true) {
+            if (recalc) {
                 calcMachine();
                 calcAgain();
             } else {
@@ -53,8 +51,6 @@ public class BasicCalculatorV2 {
 
         } else if (yesno.equalsIgnoreCase("yes")) {
             System.out.println("Calculator Started!");
-        } else if (yesno.equalsIgnoreCase("quit") || yesno.equalsIgnoreCase("stop")) {
-            System.exit(0);
         }
     }
 
@@ -94,7 +90,7 @@ public class BasicCalculatorV2 {
 
     static void calcMachine() {
 
-        if (finished != true) {
+        if (!finished) {
             System.out.println("Calculation Machine Initialized, Type in an equation to get started:");
         } else {
             System.out.println("─\n");
@@ -102,18 +98,16 @@ public class BasicCalculatorV2 {
 
         String equation = machine.nextLine();
         ArrayList<String> eq = new ArrayList<>();
-        String[] nums = null;
+        String[] nums;
 
         nums = equation.split("(?<=[-+*/%])|(?=[-+*/%])");
         List<String> funcheck = Arrays.asList(nums);
 
         if (funcheck.contains(add) && !funcheck.contains(sub) && !funcheck.contains(mul) && !funcheck.contains(div)
                 && !funcheck.contains(mod) && !funcheck.contains(fact) && !funcheck.contains(sqrt)) {
-            for (int i = 0; i < nums.length; i++) {
-                if (!nums[i].equalsIgnoreCase(add)) {
-                    eq.add(nums[i]);
-                } else {
-                    ;
+            for (String num : nums) {
+                if (!num.equalsIgnoreCase(add)) {
+                    eq.add(num);
                 }
             }
 
@@ -130,11 +124,9 @@ public class BasicCalculatorV2 {
 
         } else if (funcheck.contains(sub) && !funcheck.contains(add) && !funcheck.contains(mul)
                 && !funcheck.contains(div) && !funcheck.contains(mod) && !funcheck.contains(fact) && !funcheck.contains(sqrt)) {
-            for (int i = 0; i < nums.length; i++) {
-                if (!nums[i].equalsIgnoreCase(sub)) {
-                    eq.add(nums[i]);
-                } else {
-                    ;
+            for (String num : nums) {
+                if (!num.equalsIgnoreCase(sub)) {
+                    eq.add(num);
                 }
             }
 
@@ -151,11 +143,9 @@ public class BasicCalculatorV2 {
 
         } else if (funcheck.contains(mul) && !funcheck.contains(add) && !funcheck.contains(sub)
                 && !funcheck.contains(div) && !funcheck.contains(mod) && !funcheck.contains(fact) && !funcheck.contains(sqrt)) {
-            for (int i = 0; i < nums.length; i++) {
-                if (!nums[i].equalsIgnoreCase(mul)) {
-                    eq.add(nums[i]);
-                } else {
-                    ;
+            for (String num : nums) {
+                if (!num.equalsIgnoreCase(mul)) {
+                    eq.add(num);
                 }
             }
 
@@ -172,16 +162,14 @@ public class BasicCalculatorV2 {
 
         } else if (funcheck.contains(div) && !funcheck.contains(add) && !funcheck.contains(sub)
                 && !funcheck.contains(mul) && !funcheck.contains(mod) && !funcheck.contains(fact) && !funcheck.contains(sqrt)) {
-            for (int i = 0; i < nums.length; i++) {
-                if (!nums[i].equalsIgnoreCase(div)) {
-                    eq.add(nums[i]);
-                } else {
-                    ;
+            for (String num : nums) {
+                if (!num.equalsIgnoreCase(div)) {
+                    eq.add(num);
                 }
             }
 
             double[] numbers = new double[eq.size()];
-            double denum = 0.0;
+            double denum;
 
             for (int y = 0; y < numbers.length; y++) {
                 numbers[y] = Double.parseDouble(eq.get(y));
@@ -199,16 +187,14 @@ public class BasicCalculatorV2 {
 
         } else if (funcheck.contains(mod) && !funcheck.contains(add) && !funcheck.contains(sub)
                 && !funcheck.contains(mul) && !funcheck.contains(div) && !funcheck.contains(fact) && !funcheck.contains(sqrt)) {
-            for (int i = 0; i < nums.length; i++) {
-                if (!nums[i].equalsIgnoreCase(mod)) {
-                    eq.add(nums[i]);
-                } else {
-                    ;
+            for (String num : nums) {
+                if (!num.equalsIgnoreCase(mod)) {
+                    eq.add(num);
                 }
             }
 
             double[] numbers = new double[eq.size()];
-            double denum = 0.0;
+            double denum;
 
             for (int y = 0; y < numbers.length; y++) {
                 numbers[y] = Double.parseDouble(eq.get(y));
@@ -235,9 +221,9 @@ public class BasicCalculatorV2 {
 
     static void calcAgain() {
 
-        while (finished == true) {
+        while (finished) {
 
-            if (recalc == true) {
+            if (recalc) {
                 System.out.println("Would you like to calculate another equation? (Yes/No)");
 
                 String calc = scanner.nextLine();
@@ -249,7 +235,6 @@ public class BasicCalculatorV2 {
                     System.exit(0);
                 } else {
                     System.out.println("Invalid Input! Enter either 'Yes' or 'No'.");
-                    continue;
                 }
 
             } else {

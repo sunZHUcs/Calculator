@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class SelectionCalculator {
 
-    static Scanner scanner = new Scanner(System.in);
-    static Scanner recalc = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
+    static final Scanner recalc = new Scanner(System.in);
 
     static String calcagain;
     static double num1;
@@ -13,17 +13,13 @@ public class SelectionCalculator {
 
     public static void main(String[] args) {
 
-        if(calc == true) {
-            infoSpout();
-            calcMachine();
-            calcAgain();
-        }else {
+        if (!calc) {
             beginPrompt();
-            infoSpout();
-            calcMachine();
-            calcAgain();
 
         }
+        infoSpout();
+        calcMachine();
+        calcAgain();
     }
 
     static void beginPrompt() {
@@ -41,7 +37,6 @@ public class SelectionCalculator {
 
         } else if (yesno.equalsIgnoreCase("yes")) {
             System.out.println("Calculator Started!");
-            return;
         }
 
     }
@@ -53,7 +48,6 @@ public class SelectionCalculator {
         System.out.println("[3] Multiplication");
         System.out.println("[4] Division");
         System.out.println("[5] Modulo");
-        return;
     }
 
     static void calcMachine() {
