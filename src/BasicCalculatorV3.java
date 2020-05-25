@@ -3,12 +3,11 @@ import java.util.Scanner;
 
 public class BasicCalculatorV3 {
 
-    static Scanner scanner = new Scanner(System.in);
-    static Scanner machine = new Scanner(System.in);
+    static final Scanner scanner = new Scanner(System.in);
+    static final Scanner machine = new Scanner(System.in);
 
     static boolean recalc;
     static boolean finished;
-    static boolean quit;
 
     static final String add = "+";
     static final String sub = "-";
@@ -23,9 +22,9 @@ public class BasicCalculatorV3 {
 
     public static void main(String[] args) {
 
-        while (finished == true) {
+        while (finished) {
 
-            if (recalc == true) {
+            if (recalc) {
                 calcMachine();
                 calcAgain();
             } else {
@@ -44,7 +43,7 @@ public class BasicCalculatorV3 {
         System.out.println("Calculator Program has initialized, would you like to continue? (Yes/No)");
         String yesno = scanner.nextLine();
 
-        switch (yesno) {
+        switch (yesno.toLowerCase()) {
             default:
                 while (!yesno.equalsIgnoreCase("yes")) {
                     System.out.println("Invalid Input!");
@@ -57,7 +56,6 @@ public class BasicCalculatorV3 {
                 System.out.println("Calculator shutting down.");
                 System.exit(0);
             case "stop":
-                System.exit(0);
             case "quit":
                 System.exit(0);
         }
@@ -81,7 +79,7 @@ public class BasicCalculatorV3 {
 
         String calcprompt = scanner.nextLine();
 
-        switch (calcprompt) {
+        switch (calcprompt.toLowerCase()) {
             default:
                 while (!calcprompt.equalsIgnoreCase("disable")) {
                     System.out.println("Invalid Input!");
@@ -96,7 +94,6 @@ public class BasicCalculatorV3 {
                 recalc = true;
                 break;
             case "stop":
-                System.exit(0);
             case "quit":
                 System.exit(0);
         }
@@ -104,7 +101,7 @@ public class BasicCalculatorV3 {
 
     static void calcMachine() {
 
-        if (finished != true) {
+        if (!finished) {
             System.out.println("Calculation Machine Initialized, Type in an equation to get started:");
         } else {
             System.out.println("─");
@@ -112,7 +109,7 @@ public class BasicCalculatorV3 {
 
         String equation = machine.nextLine();
         ArrayList<String> eq = new ArrayList<>();
-        String[] nums = null;
+        String[] nums;
 
         nums = equation.split("(?<=[-+*/%!^√])|(?=[-+*/%!^√])");
 
@@ -121,146 +118,120 @@ public class BasicCalculatorV3 {
 
             for (int i = 0; i < nums.length; i++) {
                 switch (nums[i]) {
-                    case add:
+                    case add -> {
                         func = 1;
                         i = nums.length;
-                        break;
-
-                    case sub:
+                    }
+                    case sub -> {
                         func = 2;
                         i = nums.length;
-                        break;
-
-                    case mul:
+                    }
+                    case mul -> {
                         func = 3;
                         i = nums.length;
-                        break;
-
-                    case div:
+                    }
+                    case div -> {
                         func = 4;
                         i = nums.length;
-                        break;
-
-                    case mod:
+                    }
+                    case mod -> {
                         func = 5;
                         i = nums.length;
-                        break;
-
-                    case fact:
+                    }
+                    case fact -> {
                         func = 6;
                         i = nums.length;
-                        break;
-
-                    case exp:
+                    }
+                    case exp -> {
                         func = 7;
                         i = nums.length;
-                        break;
-
-                    case sqrt:
+                    }
+                    case sqrt -> {
                         func = 8;
                         i = nums.length;
-                        break;
+                    }
                 }
             }
         }
 
-        for (int i = 0; i < nums.length; i++) {
-            if (!nums[i].equalsIgnoreCase(add) && !nums[i].equalsIgnoreCase(sub) && !nums[i].equalsIgnoreCase(mul)
-                    && !nums[i].equalsIgnoreCase(div) && !nums[i].equalsIgnoreCase(mod)
-                    && !nums[i].equalsIgnoreCase(fact) && !nums[i].equalsIgnoreCase(exp)
-                    && !nums[i].equalsIgnoreCase(sqrt)) {
-                eq.add(nums[i]);
-            } else {
-                ;
+        for (String num : nums) {
+            if (!num.equalsIgnoreCase(add) && !num.equalsIgnoreCase(sub) && !num.equalsIgnoreCase(mul)
+                    && !num.equalsIgnoreCase(div) && !num.equalsIgnoreCase(mod)
+                    && !num.equalsIgnoreCase(fact) && !num.equalsIgnoreCase(exp)
+                    && !num.equalsIgnoreCase(sqrt)) {
+                eq.add(num);
             }
         }
 
         double[] numbers = new double[eq.size()];
-        double denum = 0.0;
+        double denum;
         double ans = 0;
 
         switch (func) {
-            case 1:
+            case 1 -> {
                 for (int i = 0; i < numbers.length; i++) {
                     numbers[i] = Double.parseDouble(eq.get(i));
                     ans += numbers[i];
                 }
-
                 System.out.println(equation + " = " + ans);
                 finished = true;
                 func = 0;
-                break;
-
-            case 2:
+            }
+            case 2 -> {
                 for (int i = 0; i < numbers.length; i++) {
                     numbers[i] = Double.parseDouble(eq.get(i));
                 }
-
                 for (int i = 1; i < numbers.length; i++) {
 
                     denum = numbers[i];
                     numbers[0] -= denum;
 
                 }
-
                 System.out.println(equation + " = " + numbers[0]);
                 finished = true;
                 func = 0;
-                break;
-
-            case 3:
-
+            }
+            case 3 -> {
                 ans = 1;
                 for (int i = 0; i < numbers.length; i++) {
                     numbers[i] = Double.parseDouble(eq.get(i));
                     ans *= numbers[i];
                 }
-
                 System.out.println(equation + " = " + ans);
                 finished = true;
                 func = 0;
-                break;
-
-            case 4:
+            }
+            case 4 -> {
                 for (int y = 0; y < numbers.length; y++) {
                     numbers[y] = Double.parseDouble(eq.get(y));
                 }
-
                 for (int i = 1; i < numbers.length; i++) {
 
                     denum = numbers[i];
                     numbers[0] /= denum;
 
                 }
-
                 System.out.println(equation + " = " + numbers[0]);
                 finished = true;
                 func = 0;
-                break;
-
-            case 5:
+            }
+            case 5 -> {
                 for (int y = 0; y < numbers.length; y++) {
                     numbers[y] = Double.parseDouble(eq.get(y));
                 }
-
                 for (int i = 1; i < numbers.length; i++) {
 
                     denum = numbers[i];
                     numbers[0] %= denum;
 
                 }
-
                 System.out.println(equation + " = " + numbers[0]);
                 finished = true;
                 func = 0;
-                break;
-
-            case 6:
+            }
+            case 6 -> {
                 if (nums.length > 2) {
                     System.out.println("Invalid Input!");
-                    finished = true;
-                    func = 0;
-                    break;
 
                 } else {
                     String num1 = nums[0];
@@ -274,17 +245,13 @@ public class BasicCalculatorV3 {
                     }
 
                     System.out.println(equation + " = " + ans);
-                    finished = true;
-                    func = 0;
-                    break;
                 }
-
-            case 7:
+                finished = true;
+                func = 0;
+            }
+            case 7 -> {
                 if (nums.length > 3) {
                     System.out.println("Invalid Input!");
-                    finished = true;
-                    func = 0;
-                    break;
 
                 } else {
                     String num1 = nums[0];
@@ -296,37 +263,31 @@ public class BasicCalculatorV3 {
                     ans = Math.pow(part1, part2);
 
                     System.out.println(equation + " = " + ans);
-                    finished = true;
-                    func = 0;
-                    break;
                 }
-
-            case 8:
-
+                finished = true;
+                func = 0;
+            }
+            case 8 -> {
                 StringBuilder builder = new StringBuilder();
-
                 for (int i = 0; i < numbers.length; i++) {
                     numbers[i] = Double.parseDouble(eq.get(i));
                     builder.append(numbers[i]);
                 }
-
                 String num1 = builder.toString();
-
                 double part1 = Double.parseDouble(num1);
                 ans = Math.sqrt(part1);
-
                 System.out.println(equation + " = " + ans);
                 finished = true;
                 func = 0;
-                break;
+            }
         }
     }
 
     static void calcAgain() {
 
-        while (finished == true) {
+        while (finished) {
 
-            if (recalc == true) {
+            if (recalc) {
                 System.out.println("Would you like to calculate another equation? (Yes/No)");
 
                 String calc = scanner.nextLine();
@@ -338,7 +299,6 @@ public class BasicCalculatorV3 {
                     System.exit(0);
                 } else {
                     System.out.println("Invalid Input! Enter either 'Yes' or 'No'.");
-                    continue;
                 }
 
             } else {
